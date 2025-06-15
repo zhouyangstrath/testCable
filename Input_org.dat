@@ -1,0 +1,173 @@
+
+===================== CABLEX v1.6.3 Input File===========================
+#FOWT DIAC input File for Power Cable Configuration Screening Tool CableX
+#Adaptable with CABLEX v1.6.3 only 
+#Author: Yang Zhou @TechnipFMC & Strathclyde Uni
+#Email: yang.zhou@technipfmc.com/careers@yzhou.uk
+=========================================================================
+
+================== DIAC System =========================================
+------------------ Cable & Bouy Module ----------------------------------
+		         1 	 CableLayout	   - Type of the Configurations (1=Lazywavepin 2=PW 3=RPW 4=Full LazyWave)
+           800   CableType       - Type of Power Cable (300=300mm2 Standard Cable, 800=800mm2 Standard Cable)
+             3   MixedBuoy       - Select if you want to apply two different Buoy in one DIAC system (1 = single Buoy, 2 = mixed Buoy, 3 = Smeared Single)
+       730_800   BuoyType        - Type of 1st/only Buoy Module for both single & mixed Buoy (e.g., 500=500kg BM, 300_300=300kg BM fit 300mm2 Cable)
+           500   Buoy2Type       - Type of 2nd Buoy Module for mixed Buoy (only applicable when MixedBuoy = 2)
+------------------ DIAC initials ----------------------------------------
+            10   Hangoff         - Vertical hang-off position of the cable to the SWL (m)
+            12   ClampInit       - Vertical distance from the bottom of the clamp to the seabed (m) Range in 10-15m
+            25   MarineGrowth    - Specify the Marine Growth of the Power Cable (%) could select 0, 25, 50, 100(default)
+------------------ CableX Specifications --------------------------------
+		         0	 DynamicRun		   - Extreme Dynamic Run (1=yes 0=default maunally import the FileList.lst for Extremedyanmic running)
+------------------ Parallel Running -------------------------------------            
+             4   MpiCount        - Cores Used for Parallel Running
+
+===================== Environment ===============================
+            93   WtrDpth         - Water depth (meters)
+            35   Offset          - Offset for quasistatic analysis: offset/waterdepth(%)
+           1.00  TidalCurrent    - The Sea Surface Tidal Current speed use to generate final current profile (m/s) 
+           0.36  WindCurrent     - The Sea Surface Wind driven Current speed use to generate final current profile (m/s)
+            40   DevDepth        - The water depth for the division of wind/tidal current, ref one 40m (m)
+
+=====================Static Check Criteria ===============================
+--------------------------Upper Catenary---------------------------------- 
+            12   SagClear        - Sag Clearance Static (m) set to 0 if not applicable
+            12   HogClear        - Hog Clearance Static (m) set to 0 if not applicable
+             9   SagMBR          - Sag Minimum Bend Radius in static analysis (m) set to 0 if not applicable
+             9   HogMBR          - Hog Minimum Bend Radius in static analysis (m) set to 0 if not applicable
+             9   FullLWMBR       - TDP Minimum Bend Radius in static analysis (m) only applicable when CableLayout = 4
+           360   TopAngleS       - Maximum Top Angle Allowrance (deg) set to 90 if not applicable
+           550   TopTensionS     - Maxiumum allowable Top Tension (KN) set to 550 if not applicable
+--------------------------Lower Catenary----------------------------------
+             8   ClampLowMBR     - Lower Clamp Minimum Bend Radius (m)  set to 0 if not applicable
+             8   TdpMBR          - Touch Down Point Minimum Bend Radius (m) set to 0 if not applicable
+
+#################################################################
+===================== CABLEX Workflows ==========================
+---------------------- LayBack -----------------------------------------
+           160   LayBackMin      - Layback Distance Lower Range (m)
+           181   LayBackMax      - Layback Distance Upper Range (m)
+            10   LayBackDelta    - Layback Increment/Mesh size (m)
+---------------------- Total Length -----------------------------------------
+           210   TotalMin        - Upper Catenary Total distance lower range (m) # Inactive Currently Calculated Based on Layback
+           241   TotalMax        - Upper Catenary Total distance upper range (m) # Inactive Currently Calculated Based on Layback
+            10   TotalDelta      - Upper Catenary Total distance Increment/mesh size (m)
+---------------------- Buoy Number -----------------------------------------
+            20   BuoyMin         - Buoy Total Number Lower Range 
+            27   BuoyMax         - Buoy Total Number Upper Range 
+             1   BuoyDelta       - Buoy Total Number Increment/Mesh size 
+             6   Buoy2Min        - Buoy Total Number Lower Range for second buoy type
+            21   Buoy2Max        - Buoy Total Number Upper Range for second buoy type
+             1   Buoy2Delta      - Buoy Total Number Increment/Mesh size for second buoy type 
+---------------------- Buoy Center to Centre -------------------------------
+             4   BuoyCCMin       - Buoy Center to Center Distance Lower Range (m)
+             5   BuoyCCMax       - Buoy Center to Center Distance Upper Range (m)
+             1   BuoyCCDelta     - Buoy Center to Center Distance Increment/Mesh size 
+---------------------- Buoy 1st Buoy Dis-----------------------------------------
+              3  Buoy1st         - 1st Buoy Distance to Upper Clamp (m) (applicable when pinned lazywave pw & rpw used)
+             60  Buoy1stMin      - 1st Buoy Distance to the anchor for FH/LW Min (m) (applicable when full lazywave used)
+            221  Buoy1stMax      - 1st Buoy Distance to the anchor for FH/LW Max (m) (applicable when full lazywave used)
+              5  Buoy1stDelta    - 1st Buoy Distance to the anchor for FH/LW Increment/Mesh size (applicable when full lazywave used)
+
+===================== RCDC/RPW Workflows ==========================
+---------------------- RCDC/RPW Anchor -----------------------------------------
+           1.7   RcdcAn          - RCDC Anchor Position Fixed/Layback ()
+		       1.7   RpwAn           - RPW Anchor Position Fixed/Layback ()
+---------------------- RCDC/RPW Length -----------------------------------------
+             4   RcdcLMin        - RCDC Length min compared with RcdcAn * Layback(m)
+			      21   RcdcLMax        - RCDC Length max compared with RcdcAn * Layback(m)
+             4   RcdcLDelta      - RCDC Length delta compared with RcdcAn * Layback(m)
+             4   RpwLMin         - RPW Length min compared with RcdcAn * Layback(m)
+			      20   RpwLMax         - RPW Length max compared with RcdcAn * Layback(m)
+             4   RpwLDelta       - RPW Length delta compared with RcdcAn * Layback(m)
+---------------------- Tether Anchor -----------------------------------------
+             9   TetherAMin      - Tether Anchor min distance to the Layback distance(m)
+             4   TetherAMax      - Tether Anchor min distance to the Layback distance(m)
+             3   TetherADelta    - Tether Anchor delta distance to the Layback distance(m)
+---------------------- Tether Length -----------------------------------------
+            12   TetherLMin      - Tether Length min distance (m)
+            15   TetherLMax      - Tether Length min distance (m)
+             1   TetherLDelta    - Tether Length delta distance (m)
+			 
+################################################################            
+================= Power Cable initials =========================
+            20   SpecifiedArcMin  - Specified Arc Length to clamp min (m)
+            8   SpecifiedArcMax  - Specified Arc Length to clamp max (m)
+            8.84   SpecifiedMBR     - Minimum Bend Radius for specified range (m)
+
+################################################################
+================= Power Cable initials =========================
+           3.56  MBRCable        - MBR Cable (m)
+           0.65  CdCable         - Drag Coeff Power Cable Normal 
+-----------------------800mm2----------------------------------- 
+         194.2   OD800CuCable    - Outer Diameter of the 800mm2 Cu Cable (mm)
+          71.9   Mai800CuCable   - Mass in air (kg/m)
+         450.9   Mwa800CuCable   - Mass in sea water (N/m) 
+-----------------------300mm2-----------------------------------         
+         170.9   OD300CuCable    - Outer Diameter of the 800mm2 Cu Cable (mm)
+          56.9   Mai300CuCable   - Mass in air (kg/m)
+         360.5   Mwa300CuCable   - Mass in sea water (N/m) 
+
+================ Buoyancy Module initials ================
+          704.3  MassBuoy        - Mass of one buoy (kg)
+         1053.0  NetBuoy         - Net Buoyancy of 1 module (kg)
+           1025  WtrDens         - Water density considered for net buoyancy (kg/m3)
+            1.6  LenBuoy         - Buoy Length (m)
+           1250  ODBuoy          - Buoy Outer Diameter (mm) 
+            2.4  ClearBuoy       - Clearance between buoys (distance face to face)
+              4  BuoyCC          - Buoyancy Center to Center (m)
+            1.2  CdBuoy          - Drag Coeff Buoyancy
+
+
+
+===================== ENVIRONMENTAL CONDITIONS =================
+          1025   WtrDens         - Water density (kg/m^3)
+          1.28   AirDens         - Air density (kg/m^3)
+---------------------- WAVES -----------------------------------------------------
+          7.58   WaveHs          - Significant wave height of incident waves (meters) 
+          12.1   WaveTp          - Peak-spectral period of incident waves       (sec) 
+---------------------- CURRENT ---------------------------------------------------
+          1.20   CurSpd          - Current veloctiy (meter/second) 
+           180   CurDir          - Current heading direction (degrees)
+---------------------- WIND ------------------------------------------------------
+          11.4   WindSpd         - Wind Speed (meter/second) 
+           180   WindDir         - Wind heading direction (degrees) 
+#     Constant   WindType        - Wind Type
+			
+#################################################################
+---------------------- CABLE Properties ------------------------------------------
+        0.1709   CableDia        - Power Cable Outer Diameter SOL (meter)
+        0.2709   CableDiaMg1     - Power Cable Outer Diameter EOL below -40m (meter)
+        0.3709   CableDiaMg2     - Power Cable Outer Diameter EOL between 2m to -40m (meter)
+         602.6   CableMass       - Power Cable Mass Per Meter SOL (kg)
+        1062.4   CableMassMg1    - Power Cable Mass Per Meter EOL below -40m (kg)
+        1730.3   CableMassMg2    - Power Cable Mass Per Meter EOL between 2m to -40m (kg)
+       21.1337   BendStiff       - Bending Stiffness (KiloNewton squared meter)
+        749700   AxialStiff      - Axial Stiffness (KiloNewton)
+          13.1   TorStiff        - Torsional Stiffness (KiloNewton squared meter)
+          0.65   CdSOL           - Drag Coefficients SOL     
+          1.05   CdEOL           - Drag Coefficients EOL  
+          0.06   CdAxSOL         - Drag Coefficients Axial SOL     
+          0.15   CdAxEOL         - Drag Coefficients Axial EOL  
+           1.0   CaSOL           - Added Mass Coefficients SOL     
+           1.0   CaEOL           - Added Mass Coefficients EOL 
+           0.9   CaSOL           - Added Mass Coefficients SOL     
+           1.0   CaEOL           - Added Mass Coefficients EOL     
+           0.9   SbFriLa         - Seabed Friction Lateral        
+           0.6   SbFriAx         - Seabed Friction Axial
+---------------------- Buoy Properties ------------------------------------------
+        0.7043   BuoyMass        - Buoy Mass (te)
+         1.714   BuoyVol         - Buoy Volume (m3)
+           1.6   BuoyH           - Buoy Height (m)
+           0.7   BuoyCd          - Buoy Drag Coefficients
+           1.0   BuoyCmx         - Buoy Added Mass Coefficients x
+           0.5   BuoyCmz         - Buoy Added Mass Coefficients z
+---------------------- Clamp Properties ------------------------------------------
+             2   ClampType       - Type of Clamp (1=300mm2 Cu Clamp, 2=800mm2 Cu Clamp)
+          1.15   ClampMass       - Clamp Mass (te)
+           2.6   ClampLength     - Clamp Length (m)
+           0.3   ClampDia        - Clamp Diameter (m)
+
+---------------------------------------------------------------------------------------		   
+===============================  Outputs  =============================================
+
